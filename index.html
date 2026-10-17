@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shax Neon Social</title>
+  <title>Shax Social SuperApp</title>
   <style>
     * {
       margin: 0;
@@ -13,12 +13,12 @@
     }
 
     body {
-      background-color: #0a0a0f;
+      background-color: #0d0d15;
       color: #fff;
       display: flex;
       justify-content: center;
       min-height: 100vh;
-      padding: 15px;
+      padding-bottom: 70px;
     }
 
     .app-container {
@@ -26,62 +26,119 @@
       max-width: 500px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 15px;
+      padding: 15px;
     }
 
-    .header {
-      text-align: center;
+    /* Top Navigation Header */
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 10px 0;
+      border-bottom: 1px solid #1a1a2e;
+      position: sticky;
+      top: 0;
+      background: #0d0d15;
+      z-index: 100;
     }
 
     .neon-title {
       color: #00f3ff;
-      font-size: 28px;
-      text-shadow: 0 0 10px #00f3ff, 0 0 20px #00f3ff;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00f3ff;
     }
 
     .neon-title span {
       color: #bc13fe;
-      text-shadow: 0 0 10px #bc13fe, 0 0 20px #bc13fe;
+      text-shadow: 0 0 10px #bc13fe;
     }
 
-    .profile-card, .post-create, .post {
-      background: #12121a;
-      border: 1px solid #2a2a3d;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 0 15px rgba(188, 19, 254, 0.15);
-    }
-
+    /* Profile Card Section */
     .profile-card {
+      background: #141423;
+      border: 1px solid #00f3ff;
+      border-radius: 16px;
+      padding: 15px;
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-top {
       display: flex;
       align-items: center;
-      gap: 15px;
-      border-color: #00f3ff;
-      box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+      justify-content: space-between;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .avatar {
-      font-size: 30px;
-      background: #1f1f2e;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(45deg, #00f3ff, #bc13fe);
       border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      background: #0a0a10;
       padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 12px;
     }
 
-    .user-info h3 {
-      color: #fff;
-    }
-
-    .tag {
-      color: #8a8a9e;
+    .stats div span {
+      display: block;
+      font-weight: bold;
+      color: #00f3ff;
       font-size: 14px;
     }
 
-    .post-create textarea {
+    .btn-action {
+      background: linear-gradient(45deg, #00f3ff, #bc13fe);
+      border: none;
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-action:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+    }
+
+    /* Post Creation Box */
+    .create-box {
+      background: #141423;
+      border: 1px solid #2a2a40;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .create-box textarea {
       width: 100%;
-      height: 80px;
-      background: #0a0a0f;
-      border: 1px solid #33334d;
+      height: 70px;
+      background: #0a0a10;
+      border: 1px solid #2a2a40;
       border-radius: 8px;
       color: #fff;
       padding: 10px;
@@ -89,153 +146,310 @@
       outline: none;
     }
 
-    .post-create textarea:focus {
-      border-color: #bc13fe;
-      box-shadow: 0 0 8px rgba(188, 19, 254, 0.5);
-    }
-
-    .post-create button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      background: linear-gradient(45deg, #00f3ff, #bc13fe);
-      border: none;
+    .create-box input {
+      background: #0a0a10;
+      border: 1px solid #2a2a40;
       border-radius: 8px;
       color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
+      padding: 8px;
+      outline: none;
+      font-size: 12px;
     }
 
-    .post-create button:hover {
-      opacity: 0.9;
-      box-shadow: 0 0 12px rgba(0, 243, 255, 0.6);
-    }
-
+    /* Feed & Post Design */
     .feed {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
 
+    .post {
+      background: #141423;
+      border: 1px solid #2a2a40;
+      border-radius: 14px;
+      padding: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
     .post-header {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-bottom: 10px;
     }
 
-    .post-author {
+    .post-user {
       font-weight: bold;
       color: #00f3ff;
     }
 
-    .post-text {
-      margin-bottom: 15px;
-      line-height: 1.4;
+    .post-media img, .post-media video {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      max-height: 300px;
+      object-fit: cover;
     }
 
     .post-actions {
       display: flex;
       gap: 15px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #2a2a40;
     }
 
     .action-btn {
       background: transparent;
       border: none;
-      color: #8a8a9e;
+      color: #a0a0b5;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .action-btn.liked {
+      color: #ff2a74;
+    }
+
+    /* Comments Section */
+    .comments-container {
+      margin-top: 10px;
+      background: #0a0a10;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .comment {
+      font-size: 12px;
+      color: #ddd;
+    }
+
+    .comment-input-group {
+      display: flex;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .comment-input-group input {
+      flex: 1;
+      background: #141423;
+      border: 1px solid #2a2a40;
+      color: #fff;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 500px;
+      background: #141423;
+      border-top: 1px solid #2a2a40;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 1000;
+    }
+
+    .nav-item {
+      color: #8a8a9e;
+      font-size: 20px;
+      cursor: pointer;
       transition: 0.2s;
     }
 
-    .action-btn:hover, .action-btn.liked {
-      color: #bc13fe;
-      text-shadow: 0 0 8px #bc13fe;
+    .nav-item.active, .nav-item:hover {
+      color: #00f3ff;
+      text-shadow: 0 0 8px #00f3ff;
     }
   </style>
 </head>
 <body>
+
   <div class="app-container">
-    <header class="header">
-      <h1 class="neon-title">SHAX <span>SOCIAL</span></h1>
+    <header class="top-header">
+      <div class="neon-title">SHAX <span>NET</span></div>
+      <button class="btn-action" onclick="toggleTheme()">⚡ Mod</button>
     </header>
 
+    <!-- Profile Section -->
     <section class="profile-card">
-      <div class="avatar">👤</div>
-      <div class="user-info">
-        <h3 id="username">Foydalanuvchi</h3>
-        <p class="tag">@shax_user</p>
+      <div class="profile-top">
+        <div class="profile-info">
+          <div class="avatar">👤</div>
+          <div>
+            <h3 id="userName">Foydalanuvchi</h3>
+            <p id="userTag" style="color: #8a8a9e; font-size: 12px;">@shax_user</p>
+          </div>
+        </div>
+        <button class="btn-action" onclick="editProfile()">Tahrirlash</button>
+      </div>
+      <div class="stats">
+        <div><span id="postCount">0</span> Postlar</div>
+        <div><span>1.2k</span> Obunachilar</div>
+        <div><span>350</span> Obunalar</div>
       </div>
     </section>
 
-    <section class="post-create">
-      <textarea id="postInput" placeholder="Nimalar haqida o'ylayapsiz?"></textarea>
-      <button id="postBtn" onclick="createPost()">Ulashish 🚀</button>
+    <!-- Create Post Section -->
+    <section class="create-box">
+      <textarea id="postText" placeholder="Nima yangiliklar bor?"></textarea>
+      <input type="text" id="mediaUrl" placeholder="Rasm yoki Video URL manzili (ixtiyoriy)">
+      <button class="btn-action" onclick="publishPost()">Afişat qiling 🚀</button>
     </section>
 
+    <!-- Feed -->
     <section id="feed" class="feed">
-      <!-- Postlar shu yerga tushadi -->
+      <!-- Dynamic posts insert here -->
     </section>
   </div>
 
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item active">🏠</div>
+    <div class="nav-item">🔍</div>
+    <div class="nav-item">📹</div>
+    <div class="nav-item">💬</div>
+    <div class="nav-item">👤</div>
+  </nav>
+
   <script>
-    let posts = JSON.parse(localStorage.getItem('shax_posts')) || [];
+    let user = JSON.parse(localStorage.getItem('app_user')) || { name: 'Foydalanuvchi', tag: '@shax_user' };
+    let posts = JSON.parse(localStorage.getItem('app_posts')) || [];
+
+    function saveState() {
+      localStorage.setItem('app_user', JSON.stringify(user));
+      localStorage.setItem('app_posts', JSON.stringify(posts));
+    }
+
+    function updateProfileUI() {
+      document.getElementById('userName').innerText = user.name;
+      document.getElementById('userTag').innerText = user.tag;
+      document.getElementById('postCount').innerText = posts.length;
+    }
+
+    function editProfile() {
+      let name = prompt("Ismingizni kiriting:", user.name);
+      let tag = prompt("Username kiriting:", user.tag);
+      if(name) user.name = name;
+      if(tag) user.tag = tag;
+      saveState();
+      updateProfileUI();
+      renderPosts();
+    }
+
+    function publishPost() {
+      const text = document.getElementById('postText').value.trim();
+      const media = document.getElementById('mediaUrl').value.trim();
+
+      if (!text && !media) return;
+
+      const newPost = {
+        id: Date.now(),
+        author: user.name,
+        text: text,
+        media: media,
+        likes: 0,
+        liked: false,
+        comments: []
+      };
+
+      posts.unshift(newPost);
+      saveState();
+      document.getElementById('postText').value = '';
+      document.getElementById('mediaUrl').value = '';
+      updateProfileUI();
+      renderPosts();
+    }
+
+    function toggleLike(index) {
+      posts[index].liked = !posts[index].liked;
+      posts[index].likes += posts[index].liked ? 1 : -1;
+      saveState();
+      renderPosts();
+    }
+
+    function deletePost(index) {
+      if(confirm("Postni o'chirmoqchimisiz?")) {
+        posts.splice(index, 1);
+        saveState();
+        updateProfileUI();
+        renderPosts();
+      }
+    }
+
+    function addComment(index) {
+      const input = document.getElementById(`comm_${index}`);
+      const val = input.value.trim();
+      if(!val) return;
+
+      posts[index].comments.push({ author: user.name, text: val });
+      saveState();
+      renderPosts();
+    }
 
     function renderPosts() {
       const feed = document.getElementById('feed');
       feed.innerHTML = '';
 
-      posts.forEach((post, index) => {
-        const postEl = document.createElement('div');
-        postEl.className = 'post';
-        postEl.innerHTML = `
+      posts.forEach((p, i) => {
+        let mediaContent = '';
+        if(p.media) {
+          if(p.media.endsWith('.mp4')) {
+            mediaContent = `<div class="post-media"><video controls src="${p.media}"></video></div>`;
+          } else {
+            mediaContent = `<div class="post-media"><img src="${p.media}" alt="media"></div>`;
+          }
+        }
+
+        let commentsHTML = p.comments.map(c => `<div class="comment"><b>${c.author}:</b> ${c.text}</div>`).join('');
+
+        const el = document.createElement('div');
+        el.className = 'post';
+        el.innerHTML = `
           <div class="post-header">
-            <span class="post-author">${post.author}</span>
-            <span class="tag">${post.time}</span>
+            <span class="post-user">${p.author}</span>
+            <button class="action-btn" style="color:#ff4d4d;" onclick="deletePost(${i})">🗑️</button>
           </div>
-          <p class="post-text">${post.text}</p>
+          <p>${p.text}</p>
+          ${mediaContent}
           <div class="post-actions">
-            <button class="action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${index})">
-              ❤️ ${post.likes} Like
+            <button class="action-btn ${p.liked ? 'liked' : ''}" onclick="toggleLike(${i})">
+              ❤️ ${p.likes}
             </button>
+            <button class="action-btn">💬 ${p.comments.length}</button>
+          </div>
+          <div class="comments-container">
+            ${commentsHTML}
+            <div class="comment-input-group">
+              <input type="text" id="comm_${i}" placeholder="Izoh...">
+              <button class="btn-action" style="padding: 4px 8px;" onclick="addComment(${i})">➤</button>
+            </div>
           </div>
         `;
-        feed.appendChild(postEl);
+        feed.appendChild(el);
       });
     }
 
-    function createPost() {
-      const input = document.getElementById('postInput');
-      const text = input.value.trim();
-
-      if (!text) return;
-
-      const newPost = {
-        author: 'Foydalanuvchi',
-        text: text,
-        likes: 0,
-        liked: false,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      posts.unshift(newPost);
-      localStorage.setItem('shax_posts', JSON.stringify(posts));
-      input.value = '';
-      renderPosts();
+    function toggleTheme() {
+      document.body.style.backgroundColor = 
+        document.body.style.backgroundColor === 'rgb(255, 255, 255)' ? '#0d0d15' : '#ffffff';
+      document.body.style.color = 
+        document.body.style.color === 'rgb(0, 0, 0)' ? '#ffffff' : '#000000';
     }
 
-    function toggleLike(index) {
-      if (posts[index].liked) {
-        posts[index].likes--;
-        posts[index].liked = false;
-      } else {
-        posts[index].likes++;
-        posts[index].liked = true;
-      }
-      localStorage.setItem('shax_posts', JSON.stringify(posts));
-      renderPosts();
-    }
-
+    updateProfileUI();
     renderPosts();
   </script>
 </body>
